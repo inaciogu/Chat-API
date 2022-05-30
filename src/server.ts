@@ -4,7 +4,6 @@ import cors from 'cors';
 import { Server } from 'socket.io';
 
 interface IMessage {
-  id: number;
   room: string;
   author: string;
   time: string;
