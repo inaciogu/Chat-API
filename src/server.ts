@@ -1,5 +1,3 @@
-import express from 'express';
+import { serverHttp } from './http';
 
-const app = express();
-
-app.listen(3001, () => console.log('Server is running on 3001'));
+serverHttp.listen(3001, () => console.log('Server is running on PORT 3001'))
