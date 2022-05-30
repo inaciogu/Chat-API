@@ -1,8 +1,8 @@
 import { io } from "./http";
 
 interface IMessage {
+  id: number;
   room: string;
-  username: string;
   author: string;
   time: string;
   message: string;
@@ -19,9 +19,9 @@ io.on("connection", socket => {
   socket.on("send_message", (data: IMessage) => {
     console.log(data);
     socket.to(data.room).emit("receive_message", data);
-  })
+  });
 
   socket.on("disconnect", () => {
-    console.log(`user is now disconnected`);
-  })
+    console.log('user disconnected', socket.id);
+  });
 });
