@@ -23,7 +23,7 @@ const io = new Server(serverHttp, {
     origin: "http://localhost:3000",
     methods: ["GET", "POST"],
   },
-  transports: ["websocket"],
+  transports: ["websocket", "polling"],
 }).listen(serverHttp);
 
   app.get('/', (_req, res) => res.send('hello world'));
