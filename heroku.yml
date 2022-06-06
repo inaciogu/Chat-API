@@ -3,4 +3,4 @@ build:
     web: Dockerfile
 
 run:
-  web: node src/server.ts
+  web: yarn ts-node src/server.ts
