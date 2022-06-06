@@ -22,6 +22,8 @@ const io = new Server(serverHttp, {
   }
 });
 
+app.get('/', (_req, res) => res.send('hello world'));
+
 io.on("connection", socket => {
   console.log(`user with id: ${socket.id} is online`);
 
