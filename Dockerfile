@@ -8,4 +8,4 @@ RUN yarn
 
 COPY . .
 
-CMD ["node", "src/server.ts"]
+CMD ["yarn", "start"]
