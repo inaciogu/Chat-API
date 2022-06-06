@@ -19,7 +19,8 @@ const io = new Server(serverHttp, {
   cors: {
     origin: "http://192.168.0.103:3000",
     methods: ["GET", "POST"],
-  }
+  },
+  transports: ["websocket"],
 });
 
 // app.get('/', (_req, res) => res.send('hello world'));
