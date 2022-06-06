@@ -1,7 +1,10 @@
 import express from 'express';
 import http from 'http';
 import cors from 'cors';
+import dotenv from 'dotenv';
 import { Server } from 'socket.io';
+
+dotenv.config();
 
 interface IMessage {
   room: string;
@@ -21,9 +24,9 @@ const io = new Server(serverHttp, {
     methods: ["GET", "POST"],
   },
   transports: ["websocket"],
-});
+}).listen(serverHttp);
 
-// app.get('/', (_req, res) => res.send('hello world'));
+  app.get('/', (_req, res) => res.send('hello world'));
 
 io.on("connection", socket => {
   console.log(`user with id: ${socket.id} is online`);
@@ -44,4 +47,4 @@ io.on("connection", socket => {
 });
 
 
-serverHttp.listen(3001, () => console.log('Server is running on PORT 3001'))
+serverHttp.listen(process.env.PORT, () => console.log('Server is running on PORT' + process.env.PORT))
