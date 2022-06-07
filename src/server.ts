@@ -24,9 +24,9 @@ const io = new Server(serverHttp, {
     methods: ["GET", "POST"],
   },
   transports: ["websocket", "polling"],
-}).listen(serverHttp);
+});
 
-  app.get('/', (_req, res) => res.send('hello world'));
+app.get('/', (_req, res) => res.send('hello world'));
 
 io.on("connection", socket => {
   console.log(`user with id: ${socket.id} is online`);
