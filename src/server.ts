@@ -20,7 +20,7 @@ const serverHttp = http.createServer(app);
 
 const io = new Server(serverHttp, {
   cors: {
-    origin: "https://chat-app-inaciogu.vercel.app",
+    origin: ["https://chat-app-inaciogu.vercel.app", "http://localhost:3000"],
     methods: ["GET", "POST"],
   },
   transports: ["websocket", "polling"],
