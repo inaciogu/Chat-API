@@ -33,13 +33,16 @@ io.on("connection", socket => {
 
   socket.on("join_room", (data) => {
     socket.join(data);
-    console.log("user joined room");
   });
 
   socket.on("send_message", (data: IMessage) => {
-    console.log(data);
     socket.to(data.room).emit("receive_message", data);
   });
+
+  socket.on("change_room", (oldRoom, newRoom) => {
+    socket.leave(oldRoom);
+    socket.join(newRoom);
+  })
 
   socket.on("disconnect", () => {
     console.log('user disconnected', socket.id);
