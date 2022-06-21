@@ -1,3 +1,4 @@
+import { Message } from "../interfaces/Message";
 import MessageModel from "../models/Message";
 
 export default class MessageService {
@@ -5,5 +6,9 @@ export default class MessageService {
 
   roomsMessages(roomId: string) {
     return this.model.roomsMessages(roomId)
+  }
+
+  newMessage(messageItem: Message) {
+    return this.model.create(messageItem);
   }
 }
