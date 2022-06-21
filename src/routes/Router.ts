@@ -9,6 +9,7 @@ export default class MessageRouter {
   }
 
   public addRoute(controller = new MessageController()) {
-    this.router.get('/messages/:id', controller.roomsMessages)
+    this.router.get('/messages/:id', controller.roomsMessages);
+    this.router.post('/messages', controller.newMessage);
   }
 }
