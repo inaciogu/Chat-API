@@ -18,4 +18,8 @@ export default class MessageModel extends MongoModel<Message> {
   constructor(model = createModel('message', MessageSchema)) {
     super(model);
   }
+
+  roomsMessages(roomId: string) {
+    return this.model.find({ room: roomId })
+  }
 }
