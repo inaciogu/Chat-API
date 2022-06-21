@@ -1,5 +1,5 @@
 import { Model as M, Document } from "mongoose";
-import IModel from "../interfaces/model";
+import IModel from "../interfaces/Model";
 
 abstract class MongoModel<T> implements IModel<T> {
   constructor(protected model: M<T & Document>) {}

@@ -1,6 +1,6 @@
 import { Document, model as createModel, Schema } from 'mongoose';
-import { Message } from '../interfaces/message';
-import MongoModel from './mongoModel';
+import { Message } from '../interfaces/Message';
+import MongoModel from './MongoModel';
 
 interface MessageDocument extends Message, Document {}
 
