@@ -3,6 +3,8 @@ import http from 'http';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import SocketServer from './socket';
+import connectToDatabase from './database/models/connection';
+import MessageRouter from './routes/Router';
 
 dotenv.config();
 
@@ -14,17 +16,26 @@ export default class App {
 
   constructor() {
     this.app = express();
-    this.app.use(cors())
+    this.app.use(cors());
+    this.app.use(express.json());
     this.serverHttp = http.createServer(this.app);
     this.io = new SocketServer(this.serverHttp);
     this.startSocket();
+    this.addRouter();
   }
 
   public start(PORT: string | number) {
+    connectToDatabase();
     this.serverHttp.listen(PORT, () => console.log('Server is running on PORT' + PORT))
   }
 
   public startSocket() {
     this.io.socketConfig();
+  }
+
+  public addRouter() {
+    const messageRouter = new MessageRouter();
+    messageRouter.addRoute();
+    this.app.use(messageRouter.router);
   }
 }
