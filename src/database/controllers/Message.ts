@@ -2,7 +2,15 @@ import { Request, Response } from "express";
 import MessageService from "../services/Message";
 
 export default class MessageController {
-  constructor(protected service = new MessageService()) {}
+  private _route: string;
+
+  constructor(protected service = new MessageService(), route = '/messages') {
+    this._route = route;
+  }
+
+  get route() {
+    return this._route;
+  }
 
   roomsMessages = async (req: Request, res: Response) => {
     try {
