@@ -1,4 +1,4 @@
-import { Message } from "../interfaces/Message";
+import { Message, MessageSchema } from "../interfaces/Message";
 import MessageModel from "../models/Message";
 
 export default class MessageService {
@@ -9,6 +9,10 @@ export default class MessageService {
   }
 
   newMessage(messageItem: Message) {
+    const parsed = MessageSchema.safeParse(messageItem);
+
+    if (!parsed.success) return { error: parsed.error }
+
     return this.model.create(messageItem);
   }
 }
