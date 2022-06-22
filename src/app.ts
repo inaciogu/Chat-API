@@ -4,7 +4,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import SocketServer from './socket';
 import connectToDatabase from './database/models/connection';
-import MessageRouter from './routes/Router';
+import MessageRouter from './routes/Message';
+import RoomRouter from './routes/Room';
 
 dotenv.config();
 
@@ -35,7 +36,11 @@ export default class App {
 
   public addRouter() {
     const messageRouter = new MessageRouter();
+    const roomRouter = new RoomRouter();
+    roomRouter.addRoute();
     messageRouter.addRoute();
+
     this.app.use(messageRouter.router);
+    this.app.use(roomRouter.router);
   }
 }
