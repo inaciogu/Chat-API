@@ -1,7 +1,7 @@
 import { Router } from "express"
 import RoomController from "../database/controllers/Room"
 
-export default class MessageRouter {
+export default class RoomRouter {
   public router: Router
 
   constructor() {
