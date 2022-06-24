@@ -39,7 +39,7 @@ export default class SocketServer {
       });
 
       socket.on("disconnect", () => {
-        console.log("user disconnected", socket.id);
+        console.log(`user ${socket.id} was disconnected`);
       });
     });
   }
