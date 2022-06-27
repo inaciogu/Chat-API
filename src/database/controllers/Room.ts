@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import RoomService from "../services/Room";
+import { Request, Response } from 'express';
+import RoomService from '../services/Room';
 
 export default class RoomController {
   private _route:string;
@@ -28,7 +28,7 @@ export default class RoomController {
       const response = await this.service.readOne(id);
 
       return response ? res.status(200).json(response) : res.status(404).json({
-        message: 'Room not found'
+        message: 'Room not found',
       });
     } catch (error) {
       return res.status(500).json({ message: 'Internal server error' });
