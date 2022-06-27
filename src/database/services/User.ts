@@ -14,4 +14,9 @@ export default class UserService extends Service<User> {
 
     return this.model.create(obj);
   }
+
+  readByEmail = async (email: string): Promise<User | ServiceError | null> => {
+    const response = this.readByEmail(email);
+    return response;
+  }
 }

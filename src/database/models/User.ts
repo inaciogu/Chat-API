@@ -17,4 +17,8 @@ export default class UserModel extends MongoModel<User> {
   constructor(model = createModel('user', userSchema)) {
     super(model);
   }
+
+  readByEmail(email: string) {
+    return this.model.findOne({ email });
+  }
 }
