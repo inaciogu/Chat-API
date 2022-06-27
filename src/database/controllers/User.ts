@@ -3,6 +3,7 @@ import * as jwt from 'jsonwebtoken';
 import { User } from '../interfaces/User';
 import UserService from '../services/User';
 import 'dotenv/config';
+import SignToken from '../auth/JWTSign';
 
 const secret = process.env.JWT_SECRET || '';
 
@@ -22,7 +23,7 @@ export default class UserController {
       const user: User = req.body;
 
       const response = await this.service.create(user);
-      const token = jwt.sign({ data: user.email }, secret, { expiresIn: '1h' });
+      const token = SignToken(user.email, secret);
 
       if (!response) {
         return res.status(500).json({ message: 'Internal server error' });
