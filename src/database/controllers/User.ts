@@ -1,5 +1,10 @@
 import { Request, Response } from 'express';
+import * as jwt from 'jsonwebtoken';
+import { User } from '../interfaces/User';
 import UserService from '../services/User';
+import 'dotenv/config';
+
+const secret = process.env.JWT_SECRET || '';
 
 export default class UserController {
   private _route:string;
@@ -14,9 +19,10 @@ export default class UserController {
 
   create = async (req: Request, res: Response) => {
     try {
-      const user = req.body;
+      const user: User = req.body;
 
       const response = await this.service.create(user);
+      const token = jwt.sign({ data: user.email }, secret, { expiresIn: '1h' });
 
       if (!response) {
         return res.status(500).json({ message: 'Internal server error' });
@@ -26,7 +32,7 @@ export default class UserController {
         return res.status(400).json(response);
       }
 
-      return res.status(201).json(response);
+      return res.status(201).json({ user: response, token });
     } catch (error) {
       return res.status(500).json({ message: 'Internal server error' });
     }
