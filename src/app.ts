@@ -6,6 +6,7 @@ import SocketServer from './socket';
 import connectToDatabase from './database/models/connection';
 import MessageRouter from './routes/Message';
 import RoomRouter from './routes/Room';
+import UserRouter from './routes/User';
 
 dotenv.config();
 
@@ -38,10 +39,14 @@ export default class App {
   public addRouter() {
     const messageRouter = new MessageRouter();
     const roomRouter = new RoomRouter();
+    const userRouter = new UserRouter();
+
+    userRouter.addRoute();
     roomRouter.addRoute();
     messageRouter.addRoute();
 
     this.app.use(messageRouter.router);
     this.app.use(roomRouter.router);
+    this.app.use(userRouter.router);
   }
 }
