@@ -1,11 +1,11 @@
-import { Router } from "express"
-import RoomController from "../database/controllers/Room"
+import { Router } from 'express';
+import RoomController from '../database/controllers/Room';
 
 export default class RoomRouter {
   public router: Router
 
   constructor() {
-    this.router = Router()
+    this.router = Router();
   }
 
   public addRoute(controller = new RoomController(), route = controller.route) {

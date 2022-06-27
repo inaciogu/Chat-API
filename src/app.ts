@@ -9,10 +9,11 @@ import RoomRouter from './routes/Room';
 
 dotenv.config();
 
-
 export default class App {
   public app: express.Express;
+
   public serverHttp: http.Server
+
   public io: SocketServer
 
   constructor() {
@@ -27,7 +28,7 @@ export default class App {
 
   public start(PORT: string | number) {
     connectToDatabase();
-    this.serverHttp.listen(PORT, () => console.log('Server is running on PORT' + PORT))
+    this.serverHttp.listen(PORT, () => console.log(`Server is running on PORT${PORT}`));
   }
 
   public startSocket() {
