@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import * as jwt from 'jsonwebtoken';
+import md5 from 'md5';
 import { User } from '../interfaces/User';
 import UserService from '../services/User';
 import 'dotenv/config';
@@ -22,7 +22,13 @@ export default class UserController {
     try {
       const user: User = req.body;
 
-      const response = await this.service.create(user);
+      const userAlreadyExists = await this.service.readByEmail(user.email);
+
+      if (userAlreadyExists) {
+        return res.status(409).json({ message: 'This email is unavailable' });
+      }
+
+      const response = await this.service.create({ ...user, password: md5(user.password) });
       const token = SignToken(user.email, secret);
 
       if (!response) {
@@ -34,6 +40,31 @@ export default class UserController {
       }
 
       return res.status(201).json({ user: response, token });
+    } catch (error) {
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+  }
+
+  login = async (req: Request, res: Response) => {
+    try {
+      const { email, password } = req.body;
+
+      const response = await this.service.readByEmail(email);
+      const token = SignToken(email, secret);
+
+      if (!response) {
+        return res.status(404).json({ message: 'Theres no user with this email' });
+      }
+
+      if ('error' in response) {
+        return res.status(400).json(response);
+      }
+
+      if (response.password !== md5(password)) {
+        return res.status(400).json({ message: 'Wrong password' });
+      }
+
+      return res.status(200).json({ user: response, token });
     } catch (error) {
       return res.status(500).json({ message: 'Internal server error' });
     }
