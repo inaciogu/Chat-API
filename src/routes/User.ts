@@ -12,5 +12,6 @@ export default class UserRouter {
     this.router.post(route, controller.create);
     this.router.get(`${route}/:id`, controller.readById);
     this.router.get(route, controller.readAll);
+    this.router.post(`${route}/login`, controller.login);
   }
 }
