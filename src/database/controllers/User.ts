@@ -3,7 +3,7 @@ import md5 from 'md5';
 import { User } from '../interfaces/User';
 import UserService from '../services/User';
 import 'dotenv/config';
-import SignToken from '../auth/JWTSign';
+import signToken from '../auth/JWTSign';
 
 const secret = process.env.JWT_SECRET || '';
 
@@ -29,7 +29,7 @@ export default class UserController {
       }
 
       const response = await this.service.create({ ...user, password: md5(user.password) });
-      const token = SignToken(user.email, secret);
+      const token = signToken(user.email, secret);
 
       if (!response) {
         return res.status(500).json({ message: 'Internal server error' });
@@ -50,7 +50,7 @@ export default class UserController {
       const { email, password } = req.body;
 
       const response = await this.service.readByEmail(email);
-      const token = SignToken(email, secret);
+      const token = signToken(email, secret);
 
       if (!response) {
         return res.status(404).json({ message: 'Theres no user with this email' });
