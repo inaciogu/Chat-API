@@ -64,7 +64,14 @@ export default class UserController {
         return res.status(400).json({ message: 'Wrong password' });
       }
 
-      return res.status(200).json({ user: response, token });
+      return res.status(200).json({
+        user: {
+          name: response.name,
+          username: response.email,
+          email: response.email,
+        },
+        token,
+      });
     } catch (error) {
       return res.status(500).json({ message: 'Internal server error' });
     }
