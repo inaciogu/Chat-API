@@ -67,7 +67,7 @@ export default class UserController {
       return res.status(200).json({
         user: {
           name: response.name,
-          username: response.email,
+          username: response.username,
           email: response.email,
         },
         token,
