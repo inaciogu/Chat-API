@@ -69,7 +69,7 @@ export default class UserController {
         token,
       });
     } catch (error) {
-      return res.status(500).json({ message: 'Internal server error' });
+      return res.status(500).json({ message: 'failed here' });
     }
   }
 
