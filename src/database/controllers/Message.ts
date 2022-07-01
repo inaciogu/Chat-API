@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import MessageService from "../services/Message";
+import { Request, Response } from 'express';
+import MessageService from '../services/Message';
 
 export default class MessageController {
   private _route: string;
@@ -20,10 +20,10 @@ export default class MessageController {
       return response
         ? res.status(200).json(response)
         : res.status(404).json({
-            message: "Room not found",
-          });
+          message: 'Room not found',
+        });
     } catch (error) {
-      return res.status(500).json({ message: "Internal server error" });
+      return res.status(500).json({ message: 'Internal server error' });
     }
   };
 
@@ -34,7 +34,7 @@ export default class MessageController {
       const response = await this.service.newMessage(message);
 
       if (!response) {
-        return res.status(500).json({ message: "Internal server error" });
+        return res.status(500).json({ message: 'Internal server error' });
       }
 
       if ('error' in response) {
@@ -42,7 +42,7 @@ export default class MessageController {
       }
       return res.status(201).json(response);
     } catch (error) {
-      return res.status(500).json({ message: "Internal server error" });
+      return res.status(500).json({ message: 'Internal server error' });
     }
   };
 }

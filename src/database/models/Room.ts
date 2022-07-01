@@ -5,9 +5,9 @@ import MongoModel from './MongoModel';
 interface RoomDocument extends Room, Document {}
 
 const roomSchema = new Schema<RoomDocument>({
-  name: { type: String, required: true }
+  name: { type: String, required: true },
 }, {
-  versionKey: false
+  versionKey: false,
 });
 
 export default class RoomModel extends MongoModel<Room> {
