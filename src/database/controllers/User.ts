@@ -31,10 +31,6 @@ export default class UserController {
       const response = await this.service.create({ ...user, password: md5(user.password) });
       const token = signToken(user.email, secret);
 
-      if (!response) {
-        return res.status(500).json({ message: 'Internal server error' });
-      }
-
       if ('error' in response) {
         return res.status(400).json(response);
       }

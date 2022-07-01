@@ -9,7 +9,7 @@ export default class UserService {
 
   readOne = async (id: string): Promise<User | ServiceError | null> => this.model.readOne(id)
 
-  create = async (obj: User): Promise<User | ServiceError | null> => {
+  create = async (obj: User): Promise<User | ServiceError> => {
     const parsed = UserSchema.safeParse(obj);
 
     if (!parsed.success) return { error: parsed.error };
