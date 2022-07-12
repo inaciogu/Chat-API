@@ -19,7 +19,6 @@ export default class UserService {
 
   readByEmail = async (email: string): Promise<User | ServiceError | null> => {
     const response = this.model.readByEmail(email);
-    console.log(response);
     return response;
   }
 }
