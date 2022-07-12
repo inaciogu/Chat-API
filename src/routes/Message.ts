@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import JWTAuth from '../database/auth/JWTAuth';
 import MessageController from '../database/controllers/Message';
 
 export default class MessageRouter {
@@ -9,7 +10,7 @@ export default class MessageRouter {
   }
 
   public addRoute(controller = new MessageController()) {
-    this.router.get('/messages/:id', controller.roomsMessages);
-    this.router.post('/messages', controller.newMessage);
+    this.router.get('/messages/:id', JWTAuth, controller.roomsMessages);
+    this.router.post('/messages', JWTAuth, controller.newMessage);
   }
 }

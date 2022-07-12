@@ -8,14 +8,6 @@ const userModel = new UserModel();
 
 const secret = process.env.JWT_SECRET || '';
 
-interface TokenPayload {
-  data: {
-    name: string;
-    username: string;
-    email: string;
-  };
-}
-
 interface CustomRequest extends Request {
   user?: User;
 }
@@ -28,9 +20,11 @@ export default async (req: CustomRequest, res: Response, next: NextFunction) => 
   }
 
   try {
-    const decoded = jwt.verify(token, secret) as TokenPayload;
+    const decoded = jwt.verify(token, secret) as jwt.JwtPayload;
 
-    const user = await userModel.readByEmail(decoded.data.email);
+    console.log(decoded);
+
+    const user = await userModel.readByEmail(decoded.data.payload);
 
     if (!user) {
       return res.status(401).json({ error: 'User not found' });
