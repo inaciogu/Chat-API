@@ -20,10 +20,7 @@ export default async (req: CustomRequest, res: Response, next: NextFunction) => 
   }
 
   try {
-    console.log(token);
     const decoded = jwt.verify(token, secret) as jwt.JwtPayload;
-
-    console.log(decoded);
 
     const user = await userModel.readByEmail(decoded.data);
 
