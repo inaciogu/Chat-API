@@ -20,11 +20,12 @@ export default async (req: CustomRequest, res: Response, next: NextFunction) => 
   }
 
   try {
+    console.log(token);
     const decoded = jwt.verify(token, secret) as jwt.JwtPayload;
 
     console.log(decoded);
 
-    const user = await userModel.readByEmail(decoded.data.payload);
+    const user = await userModel.readByEmail(decoded.data);
 
     if (!user) {
       return res.status(401).json({ error: 'User not found' });
@@ -33,6 +34,7 @@ export default async (req: CustomRequest, res: Response, next: NextFunction) => 
     req.user = user;
     next();
   } catch (error) {
+    console.log(error);
     return res.status(401).json({ message: 'Invalid or expired token' });
   }
 };

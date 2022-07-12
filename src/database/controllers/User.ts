@@ -29,11 +29,12 @@ export default class UserController {
       }
 
       const response = await this.service.create({ ...user, password: md5(user.password) });
-      const token = signToken(user.email, secret);
 
       if ('error' in response) {
         return res.status(400).json(response);
       }
+
+      const token = signToken(response.email, secret);
 
       return res.status(201).json({ user: response, token });
     } catch (error) {
@@ -46,7 +47,6 @@ export default class UserController {
       const { email, password } = req.body;
 
       const response = await this.service.readByEmail(email);
-      const token = signToken(email, secret);
 
       if (!response) {
         return res.status(404).json({ message: 'Theres no user with this email' });
@@ -59,6 +59,8 @@ export default class UserController {
       if (response.password !== md5(password)) {
         return res.status(400).json({ message: 'Wrong password' });
       }
+
+      const token = signToken(response.email, secret);
 
       return res.status(200).json({
         user: {
