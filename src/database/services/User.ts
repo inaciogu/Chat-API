@@ -17,7 +17,7 @@ export default class UserService {
     return this.model.create(obj);
   }
 
-  readByEmail = async (email: string): Promise<User | ServiceError | null> => {
+  readByEmail = async (email: string) => {
     const response = this.model.readByEmail(email);
     return response;
   }
