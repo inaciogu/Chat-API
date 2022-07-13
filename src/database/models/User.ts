@@ -11,6 +11,12 @@ const userSchema = new Schema<UserDocument>({
   password: { type: String, required: true, select: false },
 }, {
   versionKey: false,
+  toJSON: {
+    transform(doc, ret) {
+      delete ret.password;
+      return ret;
+    },
+  },
 });
 
 export default class UserModel extends MongoModel<User> {
@@ -21,4 +27,6 @@ export default class UserModel extends MongoModel<User> {
   readByEmail(email: string) {
     return this.model.findOne({ email }).select('+password');
   }
+
+  create = (user: User) => this.model.create({ ...user });
 }
