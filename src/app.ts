@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import http from 'http';
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -30,6 +30,9 @@ export default class App {
   public start(PORT: string | number) {
     connectToDatabase();
     this.serverHttp.listen(PORT, () => console.log(`Server is running on PORT${PORT}`));
+    this.app.get('/', (_req: Request, res: Response) => {
+      res.send('<h1>Welcome to Chat API!</h1>');
+    });
   }
 
   public startSocket() {
