@@ -64,6 +64,7 @@ export default class UserController {
 
       return res.status(200).json({
         user: {
+          _id: response._id,
           name: response.name,
           username: response.username,
           email: response.email,
